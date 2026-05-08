@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const fs = require('fs');
 const path = require('path');
 
 const normalizePrivateKey = (key) => key?.replace(/\\n/g, '\n');
@@ -6,7 +7,13 @@ const normalizePrivateKey = (key) => key?.replace(/\\n/g, '\n');
 const getCredential = () => {
   if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
     const serviceAccountPath = path.resolve(process.cwd(), process.env.FIREBASE_SERVICE_ACCOUNT_PATH);
-    return admin.credential.cert(require(serviceAccountPath));
+    if (fs.existsSync(serviceAccountPath)) {
+      return admin.credential.cert(require(serviceAccountPath));
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      throw new Error(`Firebase service account file not found: ${serviceAccountPath}`);
+    }
   }
 
   const required = ['FIREBASE_PROJECT_ID', 'FIREBASE_CLIENT_EMAIL', 'FIREBASE_PRIVATE_KEY'];
