@@ -1,0 +1,104 @@
+mutation SeedData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data for the application, not sensitive.") {
+  user_insertMany(data: [
+    {
+      id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      username: "admin",
+      passwordHash: "hashed_admin_password",
+      role: "admin",
+      email: "admin@example.com",
+      firstName: "Admin",
+      lastName: "User"
+    },
+    {
+      id: "b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22",
+      username: "technician1",
+      passwordHash: "hashed_tech1_password",
+      role: "technician",
+      email: "tech1@example.com",
+      firstName: "Tech",
+      lastName: "One"
+    },
+    {
+      id: "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
+      username: "technician2",
+      passwordHash: "hashed_tech2_password",
+      role: "technician",
+      email: "tech2@example.com",
+      firstName: "Tech",
+      lastName: "Two"
+    }
+  ])
+  bus_insertMany(data: [
+    {
+      id: "d3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44",
+      fleetNumber: "B001",
+      make: "Volvo",
+      model: "7900 Electric",
+      year: 2020,
+      lastMaintenanceDate: "2023-10-26",
+      licensePlate: "BUS-001",
+      vin: "VIN001VOLVO",
+      mileage: 50000
+    },
+    {
+      id: "e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55",
+      fleetNumber: "B002",
+      make: "Mercedes-Benz",
+      model: "Citaro",
+      year: 2221,
+      lastMaintenanceDate: "2023-11-15",
+      licensePlate: "BUS-002",
+      vin: "VIN002MERCEDES",
+      mileage: 75000
+    }
+  ])
+  part_insertMany(data: [
+    {
+      id: "f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a66",
+      name: "Oil Filter",
+      partNumber: "OF-123",
+      quantityInStock: 100,
+      unitPrice: 15.50,
+      description: "Engine oil filter",
+      supplier: "Global Parts Inc."
+    },
+    {
+      id: "g6eebc99-9c0b-4ef8-bb6d-6bb9bd380a77",
+      name: "Brake Pad Set",
+      partNumber: "BP-456",
+      quantityInStock: 50,
+      unitPrice: 85.00,
+      description: "Front brake pad set",
+      supplier: "BrakePro Solutions"
+    }
+  ])
+  maintenanceTask_insertMany(data: [
+    {
+      id: "h7eebc99-9c0b-4ef8-bb6d-6bb9bd380a88",
+      description: "Routine A-Service Inspection",
+      scheduledDate: "2024-01-10",
+      status: "scheduled",
+      busId: "d3eebc99-9c0b-4ef8-bb6d-6bb9bd380a44",
+      assignedTechnicianId: "b1eebc99-9c0b-4ef8-bb6d-6bb9bd380a22",
+      notes: "Standard inspection for 50k mileage."
+    },
+    {
+      id: "i8eebc99-9c0b-4ef8-bb6d-6bb9bd380a99",
+      description: "Brake System Check",
+      scheduledDate: "2024-01-15",
+      status: "pending",
+      busId: "e4eebc99-9c0b-4ef8-bb6d-6bb9bd380a55",
+      assignedTechnicianId: "c2eebc99-9c0b-4ef8-bb6d-6bb9bd380a33",
+      notes: "Check brake fluid and pad wear."
+    }
+  ])
+  maintenanceLog_insertMany(data: [
+    {
+      maintenanceTaskId: "h7eebc99-9c0b-4ef8-bb6d-6bb9bd380a88",
+      partId: "f5eebc99-9c0b-4ef8-bb6d-6bb9bd380a66",
+      quantityUsed: 1,
+      dateUsed: "2024-01-10",
+      notes: "Changed engine oil filter during A-Service."
+    }
+  ])
+}

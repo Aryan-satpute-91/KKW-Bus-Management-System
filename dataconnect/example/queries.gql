@@ -1,0 +1,47 @@
+query ListAllBuses @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves bus information.") {
+  buses {
+    id
+    fleetNumber
+    make
+    model
+    year
+    licensePlate
+  }
+}
+
+mutation AddMaintenanceTask($busId: UUID!, $description: String!, $scheduledDate: Date!, $status: String!) @auth(level: USER, insecureReason: "This operation requires a logged-in user to create maintenance tasks.") {
+  maintenanceTask_insert(data: {
+    busId: $busId,
+    description: $description,
+    scheduledDate: $scheduledDate,
+    status: $status
+  }) {
+    id
+  }
+}
+
+mutation UpdatePartStock($partId: UUID!, $newQuantity: Int!) @auth(level: USER, insecureReason: "This operation requires a logged-in user to update part stock.") {
+  part_update(key: {id: $partId}, data: {
+    quantityInStock: $newQuantity
+  }) {
+    id
+  }
+}
+
+query GetMaintenanceLogDetails($maintenanceTaskId: UUID!, $partId: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves maintenance log details.") {
+  maintenanceLog(key: {maintenanceTaskId: $maintenanceTaskId, partId: $partId}) {
+    dateUsed
+    quantityUsed
+    notes
+    maintenanceTask {
+      description
+      scheduledDate
+      status
+    }
+    part {
+      name
+      partNumber
+      unitPrice
+    }
+  }
+}

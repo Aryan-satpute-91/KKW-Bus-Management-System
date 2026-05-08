@@ -1,0 +1,46 @@
+type User @table {
+  username: String!
+  passwordHash: String!
+  role: String!
+  email: String
+  firstName: String
+  lastName: String
+}
+
+type Bus @table {
+  fleetNumber: String!
+  make: String!
+  model: String!
+  year: Int!
+  lastMaintenanceDate: Date!
+  licensePlate: String
+  vin: String
+  mileage: Int
+}
+
+type MaintenanceTask @table {
+  description: String!
+  scheduledDate: Date!
+  status: String!
+  bus: Bus!
+  completionDate: Date
+  assignedTechnician: User
+  notes: String
+}
+
+type Part @table {
+  name: String!
+  partNumber: String!
+  quantityInStock: Int!
+  unitPrice: Float!
+  description: String
+  supplier: String
+}
+
+type MaintenanceLog @table(key: ["maintenanceTask", "part"]) {
+  maintenanceTask: MaintenanceTask!
+  part: Part!
+  quantityUsed: Int!
+  dateUsed: Date!
+  notes: String
+}

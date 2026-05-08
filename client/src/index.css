@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9f9f9;
+    color: #1a1c1c;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c6c5d4;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000666;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+  }
+
+  .btn-primary {
+    @apply bg-secondary text-white font-semibold py-2.5 px-5 rounded transition-all duration-200 hover:bg-primary active:scale-95 shadow-sm;
+  }
+
+  .btn-outline {
+    @apply border border-secondary text-secondary font-semibold py-2.5 px-5 rounded transition-all duration-200 hover:bg-secondary hover:text-white active:scale-95;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white font-semibold py-2.5 px-5 rounded transition-all duration-200 hover:bg-red-700 active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-surface-low border border-gray-300 rounded focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all text-sm;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-card border border-surface-highest p-6;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .stat-card {
+    @apply bg-white rounded-lg shadow-card border border-surface-highest p-5 hover:shadow-card-hover transition-shadow duration-200;
+  }
+
+  .table-header {
+    @apply bg-primary text-white text-xs font-semibold uppercase tracking-wider py-3 px-4;
+  }
+
+  .table-row {
+    @apply border-b border-surface-highest hover:bg-surface-low transition-colors duration-100;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 text-white/70 rounded-lg transition-all duration-200 hover:bg-white/10 hover:text-white cursor-pointer;
+  }
+
+  .sidebar-link.active {
+    @apply bg-white/15 text-white font-medium border-r-2 border-accent;
+  }
+}
